@@ -40,6 +40,35 @@ namespace Modul5
                     return color;
             }
         }
+
+        /// 5.1.6
+        /// get array from the console <summary>
+        static int[] GetArrayFromConsole()
+        {
+            var result = new int[5];
+
+            for (int i = 0; i < result.Length; i++)
+            {
+                Console.Write("Введите элемент массива номер {0}: ", i + 1);
+                result[i] = int.Parse(Console.ReadLine());
+            }
+
+            //add sorting
+            for (int i = 1; i < result.Length; i++)
+            {
+                for(int j = 0; j < result.Length - i; j++)
+                {
+                    if (result[j] > result[j + 1])
+                    {
+                        (result[j], result[j + 1]) = (result[j + 1], result[j]);
+                    }
+                }
+            }
+
+            foreach (int i in result) Console.WriteLine(i);
+                
+            return result;
+        }
         static void Main(string[] args)
         {
             ///5.1
@@ -65,6 +94,9 @@ namespace Modul5
             {
                 Console.WriteLine(FavouriteColors[i]);
             }
+
+            ///5.1.6
+            int[] NewArray = GetArrayFromConsole();
             Console.ReadLine();
         }
     }
