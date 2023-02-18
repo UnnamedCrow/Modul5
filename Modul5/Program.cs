@@ -48,7 +48,7 @@ namespace Modul5
         /// 5.1.6
         /// get array from the console
         /// 5.2.8
-        /// modificate input array <summary>
+        /// modificate input array
         /// 5.2.14
         /// add optional param num, that means size of array
 
@@ -65,33 +65,60 @@ namespace Modul5
             //add sorting
 
         }
-        /// <summary>
-        /// 5.2.8
-        /// Array sorting
-        /// 5.2.17 add optional boolean param for sorting
-        static int[] SortArray(int[] array, bool sort = false)
+
+        ///5.3.13
+        ///add two functions for array sorting <summary>
+
+        /// sorting biggest Up
+        static int[] SortArrayAsc(in int[] array)
         {
-            if (sort == true)
+            int[] result = new int[array.Length];
+            result = array;
+            for (int i = 1; i < result.Length; i++)
             {
-                for (int i = 1; i < array.Length; i++)
+                for (int j = 0; j < result.Length - i; j++)
                 {
-                    for (int j = 0; j < array.Length - i; j++)
+                    if (result[j] > result[j + 1])
                     {
-                        if (array[j] > array[j + 1])
-                        {
-                            (array[j], array[j + 1]) = (array[j + 1], array[j]);
-                        }
+                        (result[j], result[j + 1]) = (result[j + 1], result[j]);
                     }
                 }
             }
-            foreach (int i in array)
-            {
-                Console.WriteLine(i);
-            }
-            return array;
+            return result;
         }
-        static void Main(string[] args)
+
+        /// sorting biggest down
+        static int[] SortArrayDesc(in int[] array)
         {
+            int[] result = new int[array.Length];
+            result = array;
+            
+            for (int i = 1; i < result.Length; i++)
+            {
+                for (int j = 0; j < result.Length - i; j++)
+                {
+                    if (result[j] < result[j + 1])
+                    {
+                        (result[j], result[j + 1]) = (result[j + 1], result[j]);
+                    }
+                }
+            }
+            return result;
+        }
+        /// 5.2.8
+        /// Array sorting
+        /// 5.2.17 add optional boolean param for sorting
+        static void SortArray(in int[] array, out int[] sortarrayasc, out int[] sortarraydesc)
+        {
+           
+            sortarraydesc = SortArrayDesc(in array);
+            sortarrayasc = SortArrayAsc(in array);
+
+        }
+
+        static void Main()
+        {
+
             ///5.1
             ///tuple with user informaton
             (string Name, int Age, string[] Dishes) User;
@@ -108,7 +135,6 @@ namespace Modul5
 
             /// 5.2.2
             /// modificate function ShowColor
-
             /// 5.1.5
             /// use ShowColor
             string[] FavouriteColors = new string[3];
@@ -123,9 +149,30 @@ namespace Modul5
 
             /// 5.1.6, 5.2.14
             Console.Write("Enter size of array: ");
-            int ArraySize = int.Parse(Console.ReadLine()); 
+            int ArraySize = int.Parse(Console.ReadLine());
             int[] NewArray = GetArrayFromConsole(ArraySize);
-            NewArray = SortArray(NewArray, true);
+
+            ///5.3.13
+
+
+
+            SortArray(in NewArray, out int[] Sortedasc, out int[] Sorteddesc);
+
+            Console.WriteLine("NewArray:");
+            foreach (int i in NewArray)
+            {
+                Console.Write(" " + i);
+            }
+            Console.WriteLine("\nSortedasc:");
+            foreach (int i in Sortedasc)
+            {
+                Console.Write(" " + i);
+            }
+            Console.WriteLine("\nSorteddesc: ");
+            foreach (int i in Sorteddesc)
+            {
+                Console.Write(" " + i);
+            }
             Console.ReadLine();
         }
     }
