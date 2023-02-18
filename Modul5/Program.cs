@@ -202,7 +202,7 @@ namespace Modul5
 
             ///5.3.13
 
-
+            //
 
             SortArray(in NewArray, out int[] Sortedasc, out int[] Sorteddesc);
 
