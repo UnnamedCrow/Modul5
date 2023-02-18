@@ -126,6 +126,9 @@ namespace Modul5
         static void Echo (string line, int step)
         {
             string a = line;
+            /// 5.5.4 add relation Foreground color from step;
+            if(15 > step && step > 0)
+                Console.ForegroundColor = (ConsoleColor) step;
             Console.WriteLine(".." + a);
             a = a.Remove(0, 1);
             if(step > 0)
@@ -134,9 +137,32 @@ namespace Modul5
               
             }
         }
+
+        /// <summary>
+        /// 5.5.8
+        /// add function Power Up
+        /// </summary>
+        static int PowerUp(int n, byte pow)
+        {
+            if (pow == 0)
+                return 1;
+            else
+            if (pow == 1)
+                return n;
+            else
+                return n * PowerUp(n, --pow);
+            
+                
+        }
+
+      
+
         static void Main()
         {
-
+            /// 5.5.8
+            /// use recursive function PowerUp
+            Console.WriteLine(PowerUp(5, 3));
+            
             ///5.1
             ///tuple with user informaton
             (string Name, int Age, string[] Dishes) User;
