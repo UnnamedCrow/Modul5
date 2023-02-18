@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace Modul5
 {
@@ -73,7 +74,8 @@ namespace Modul5
         static int[] SortArrayAsc(in int[] array)
         {
             int[] result = new int[array.Length];
-            result = array;
+            for (int i = 0; i < result.Length;i++)
+                result[i] = array[i];
             for (int i = 1; i < result.Length; i++)
             {
                 for (int j = 0; j < result.Length - i; j++)
@@ -91,8 +93,8 @@ namespace Modul5
         static int[] SortArrayDesc(in int[] array)
         {
             int[] result = new int[array.Length];
-            result = array;
-            
+            for (int i = 0; i < result.Length; i++)
+                result[i] = array[i];
             for (int i = 1; i < result.Length; i++)
             {
                 for (int j = 0; j < result.Length - i; j++)
@@ -110,12 +112,28 @@ namespace Modul5
         /// 5.2.17 add optional boolean param for sorting
         static void SortArray(in int[] array, out int[] sortarrayasc, out int[] sortarraydesc)
         {
-           
+              
             sortarraydesc = SortArrayDesc(in array);
             sortarrayasc = SortArrayAsc(in array);
 
         }
 
+
+        /// <summary>
+        /// 5.5.3
+        /// add recursion function Echo
+        /// </summary>
+        static void Echo (string line, int step)
+        {
+            string a = line;
+            Console.WriteLine(".." + a);
+            a = a.Remove(0, 1);
+            if(step > 0)
+            {
+              Echo(a, step - 1);  
+              
+            }
+        }
         static void Main()
         {
 
@@ -132,6 +150,10 @@ namespace Modul5
                 Console.Write("Enter your favourite dish {0}: ", i + 1);
                 User.Dishes[i] = Console.ReadLine();
             }
+
+            ///5.5.3
+            ///use recirsive function
+            Echo(User.Name, User.Name.Length - 1);
 
             /// 5.2.2
             /// modificate function ShowColor
