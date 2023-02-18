@@ -48,13 +48,14 @@ namespace Modul5
         /// 5.1.6
         /// get array from the console
         /// 5.2.8
-        /// modificate input array
-        static int[] GetArrayFromConsole()
+        /// modificate input array <summary>
+        /// 5.2.14
+        /// add optional param num, that means size of array
+
+        static int[] GetArrayFromConsole(int num = 5)
         {
-            Console.Write("Enter size of array: ");
-            int i = int.Parse(Console.ReadLine());
-            var result = new int[i];
-            for (i = 0; i < result.Length; i++)
+            var result = new int[num];
+            for (int i = 0; i < result.Length; i++)
             {
                 Console.Write("Введите элемент массива номер {0}: ", i + 1);
                 result[i] = int.Parse(Console.ReadLine());
@@ -67,17 +68,25 @@ namespace Modul5
         /// <summary>
         /// 5.2.8
         /// Array sorting
-        static int[] SortArray(int[] array)
+        /// 5.2.17 add optional boolean param for sorting
+        static int[] SortArray(int[] array, bool sort = false)
         {
-            for (int i = 1; i < array.Length; i++)
+            if (sort == true)
             {
-                for (int j = 0; j < array.Length - i; j++)
+                for (int i = 1; i < array.Length; i++)
                 {
-                    if (array[j] > array[j + 1])
+                    for (int j = 0; j < array.Length - i; j++)
                     {
-                        (array[j], array[j + 1]) = (array[j + 1], array[j]);
+                        if (array[j] > array[j + 1])
+                        {
+                            (array[j], array[j + 1]) = (array[j + 1], array[j]);
+                        }
                     }
                 }
+            }
+            foreach (int i in array)
+            {
+                Console.WriteLine(i);
             }
             return array;
         }
@@ -112,14 +121,11 @@ namespace Modul5
                 Console.WriteLine(FavouriteColors[i]);
             }
 
-            // 5.1.6
-            int[] NewArray = GetArrayFromConsole();
-            NewArray = SortArray(NewArray);
-
-            foreach (int i in NewArray)
-            {
-                Console.WriteLine(i);
-            }
+            /// 5.1.6, 5.2.14
+            Console.Write("Enter size of array: ");
+            int ArraySize = int.Parse(Console.ReadLine()); 
+            int[] NewArray = GetArrayFromConsole(ArraySize);
+            NewArray = SortArray(NewArray, true);
             Console.ReadLine();
         }
     }
