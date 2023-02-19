@@ -25,7 +25,7 @@ namespace Modul5
             /// Enter Age and validate intup data
             result.Age = GetUserAge();
 
-            /// Enter pets information
+            /// Enter pets information and validate input data
             result.HavePet = HavePetFunc();
             if (result.HavePet == true)
 
@@ -36,7 +36,7 @@ namespace Modul5
                 /// if user don't have pets - don't need to input names
                 result.PetName = null;
 
-            /// Enter colors information
+            /// Enter colors information and validate input information
             int HowManyColors = GetNumColors();
             if (HowManyColors > 0)
 
@@ -78,8 +78,10 @@ namespace Modul5
             }
                 
         }
-
+        
         /// Get favourite colors from user
+        /// <param name="ColorsCount"></param>
+        /// <returns> favourite colors </returns>
         static string[] GetFavColors(int ColorsCount)
         {
             string[] result = new string[ColorsCount];
@@ -90,7 +92,7 @@ namespace Modul5
             }
             return result;
         }
-
+               
         /// enter pets names
         /// <param name="PetCount"></param>
         /// <returns>pet names</returns>
@@ -105,10 +107,8 @@ namespace Modul5
             return result;
         }
 
-        /// <summary>
         /// User enters information about his pets
         /// validation 
-        /// </summary>
         /// <returns>bool</returns>
         static byte PetCountFunc()
         {
@@ -122,10 +122,8 @@ namespace Modul5
             }
         }
 
-        /// <summary>
         /// User enters information about his pets
         /// validation
-        /// </summary>
         /// <returns>bool</returns>
         static bool HavePetFunc()
         {
@@ -143,10 +141,8 @@ namespace Modul5
             }
         }
 
-        /// <summary>
         /// output function
         /// for user tuple
-        /// </summary>
         static void OutputData((string Firstname, string Surname, byte Age, bool HavePet, string[] PetName, string[] FavouriteColors) User)
         {
             /// Output Users firstname and surname
@@ -166,7 +162,7 @@ namespace Modul5
             }               
             else
 
-                ///If user have no pets
+                /// If user have no pets
                 Console.WriteLine("User didn't enter any pet");
 
             /// Output users favourite colors if user have favourite colors
@@ -185,7 +181,7 @@ namespace Modul5
         {
             /// Input Users data in to tuple
             var User = InputData();
-
+            
             ///Outpun users data from tuple
             OutputData(User);
             Console.ReadLine();
