@@ -23,21 +23,39 @@ namespace Modul5
             result.Surname = Console.ReadLine();
 
             /// Enter Age and validate intup data
-            result.Age = GetUserAge();
+            Console.Write("Enter your age: ");
+            while(!byte.TryParse(Console.ReadLine(), out result.Age) || result.Age <= 0)
+            {
+                Console.WriteLine("Oooops! Please try again... \nEnter your age: ");
+            }
 
             /// Enter pets information and validate input data
             result.HavePet = HavePetFunc();
             if (result.HavePet == true)
-
+            {
                 /// if user have pet or rets - input pets names
-                result.PetName = GetPetName(PetCountFunc());
+                Console.Write("How many pets do you have: ");
+                byte PetCount = 0;
+                /// validation
+                while (!byte.TryParse(Console.ReadLine(), out PetCount) || PetCount <= 0)
+                {
+                    Console.Write("Oooops! Please try again... \nHow many pets do you have: ");
+                }
+                result.PetName = GetPetName(PetCount);
+            }
             else
-                
+
                 /// if user don't have pets - don't need to input names
                 result.PetName = null;
 
             /// Enter colors information and validate input information
-            int HowManyColors = GetNumColors();
+            int HowManyColors = 0;
+            Console.Write("Enter num of your favourite colors: ");
+            /// validation
+            while (!int.TryParse(Console.ReadLine(), out HowManyColors) || HowManyColors < 0)
+            {
+                Console.Write("Oooops! Please try again... \nHow many pets do you have: ");
+            }
             if (HowManyColors > 0)
 
                 /// if user have favourite colors - input names of this colors
@@ -49,36 +67,6 @@ namespace Modul5
             return result;
         }
 
-        /// Function for get users age
-        /// and validate input data
-        static byte GetUserAge()
-        {
-            Console.Write("Enter your age: ");
-            if(byte.TryParse(Console.ReadLine(), out byte result) && result > 0)
-                return result;
-            else
-            {
-                Console.WriteLine("Oooops! Please try again...");
-                return GetUserAge();
-            }
-        }
-
-        /// Get num of favourite colors 
-        /// and validate data
-        /// <returns>num of favourite colors</returns>
-        static int GetNumColors()
-        {           
-            Console.Write("Enter num of your favourite colors: ");
-            if(int.TryParse(Console.ReadLine(), out int result))
-                return result;
-            else
-            {
-                Console.WriteLine("Oooops! Please try again...");
-                return GetNumColors();
-            }
-                
-        }
-        
         /// Get favourite colors from user
         /// <param name="ColorsCount"></param>
         /// <returns> favourite colors </returns>
@@ -107,22 +95,7 @@ namespace Modul5
             return result;
         }
 
-        /// User enters information about his pets
-        /// validation 
-        /// <returns>bool</returns>
-        static byte PetCountFunc()
-        {
-            Console.Write("How many pets do you have: ");
-            if (byte.TryParse(Console.ReadLine(), out byte result) && result > 0)
-                return result;
-            else
-            {
-                Console.WriteLine("Oooops! Please try again...");
-                return PetCountFunc();
-            }
-        }
-
-        /// User enters information about his pets
+         /// User enters information about his pets
         /// validation
         /// <returns>bool</returns>
         static bool HavePetFunc()
