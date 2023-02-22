@@ -102,11 +102,11 @@ namespace Modul5
         {
             Console.Write("Do you have a pet? Yes or No: ");
             string HavePet = Console.ReadLine();
-            if (HavePet == "Yes" || HavePet == "yes")
+            if (string.Equals(HavePet, "YES", StringComparison.OrdinalIgnoreCase))
                 return true;
             else
-                if (HavePet == "No" || HavePet == "no")
-                return false;
+                if (string.Equals(HavePet, "NO", StringComparison.OrdinalIgnoreCase))
+                return false; 
             else
             {
                 Console.WriteLine("Oooops! Please try again");
