@@ -22,29 +22,19 @@ namespace Modul5
             Console.Write("Enter your surtname: ");
             result.Surname = Console.ReadLine();
 
-            /// Enter Age and validate intup data
+            /// Enter Age and validate intup data          
             Console.Write("Enter your age: ");
-            while(!byte.TryParse(Console.ReadLine(), out result.Age) || result.Age <= 0)
-            {
-                Console.WriteLine("Oooops! Please try again... \nEnter your age: ");
-            }
+            result.Age = GetCount("Oooops! Please try again... \nEnter your age: ");
 
             /// Enter pets information and validate input data
             result.HavePet = HavePetFunc();
             if (result.HavePet == true)
             {
                 /// if user have pet or rets - input pets names
-                Console.Write("How many pets do you have: ");
-                byte PetCount = 0;
-                /// validation
-                while (!byte.TryParse(Console.ReadLine(), out PetCount) || PetCount <= 0)
-                {
-                    Console.Write("Oooops! Please try again... \nHow many pets do you have: ");
-                }
-                result.PetName = GetPetName(PetCount);
+                Console.Write("How many pets do you have: ");          
+                result.PetName = GetNames(GetCount("Oooops! Please try again... \nHow many pets do you have: "), "Please enter name your pet number {0}: ");
             }
-            else
-
+            else 
                 /// if user don't have pets - don't need to input names
                 result.PetName = null;
 
@@ -54,12 +44,12 @@ namespace Modul5
             /// validation
             while (!int.TryParse(Console.ReadLine(), out HowManyColors) || HowManyColors < 0)
             {
-                Console.Write("Oooops! Please try again... \nHow many pets do you have: ");
+                Console.Write("Oooops! Please try again... \nHow many favourite colors do you have: ");
             }
             if (HowManyColors > 0)
 
                 /// if user have favourite colors - input names of this colors
-                result.FavouriteColors = GetFavColors(HowManyColors);
+                result.FavouriteColors = GetNames(HowManyColors, "Please enter your favourite color number {0}: ");
             else
 
                 /// if user have no favourite colors - don't neep to intput colors
@@ -67,35 +57,34 @@ namespace Modul5
             return result;
         }
 
-        /// Get favourite colors from user
-        /// <param name="ColorsCount"></param>
-        /// <returns> favourite colors </returns>
-        static string[] GetFavColors(int ColorsCount)
+        ///
+        /// count validation function
+        static byte GetCount(string Message)
         {
-            string[] result = new string[ColorsCount];
-            for (int i = 0; i < ColorsCount; i++)
+            if (!byte.TryParse(Console.ReadLine(), out byte count) || count <= 0)
             {
-                Console.Write("Please enter your favourite color number {0}: ", i + 1);
-                result[i] = Console.ReadLine();
+                Console.WriteLine(Message);
+                return GetCount(Message);
             }
-            return result;
+            else
+                return count;
         }
-               
-        /// enter pets names
-        /// <param name="PetCount"></param>
+
+        /// enter  names
+        /// <param name="Count"></param>
         /// <returns>pet names</returns>
-        static string[] GetPetName(int PetCount)
+        static string[] GetNames(int Count, string Message)
         {
-            string[] result = new string[PetCount];
-            for (int i = 0; i < PetCount; i++)
+            string[] result = new string[Count];
+            for (int i = 0; i < Count; i++)
             {
-                Console.Write("Please enter name your pet number {0}: ", i + 1);
+                Console.Write(Message, i + 1);
                 result[i] = Console.ReadLine();
             }
             return result;
         }
 
-         /// User enters information about his pets
+        /// User enters information about his pets
         /// validation
         /// <returns>bool</returns>
         static bool HavePetFunc()
@@ -106,7 +95,7 @@ namespace Modul5
                 return true;
             else
                 if (string.Equals(HavePet, "NO", StringComparison.OrdinalIgnoreCase))
-                return false; 
+                return false;
             else
             {
                 Console.WriteLine("Oooops! Please try again");
@@ -132,7 +121,7 @@ namespace Modul5
                 for (int i = 0; i < User.PetName.Length; i++)
 
                     Console.WriteLine(User.PetName[i] + " ");
-            }               
+            }
             else
 
                 /// If user have no pets
@@ -144,17 +133,16 @@ namespace Modul5
                 Console.WriteLine("Users favourite colors is ");
                 for (int i = 0; i < User.FavouriteColors.Length; i++)
                     Console.WriteLine(User.FavouriteColors[i] + " ");
-            }               
-            else 
+            }
+            else
 
                 /// If User have no favourite color
                 Console.WriteLine("User didn't enter any favourite color");
         }
         static void Main()
         {
-            /// Input Users data in to tuple
             var User = InputData();
-            
+
             ///Outpun users data from tuple
             OutputData(User);
             Console.ReadLine();
